@@ -31,6 +31,10 @@ button.direction = digitalio.Direction.INPUT
 button.pull = digitalio.Pull.UP
 button_previous_state = button.value
 
+pump = digitalio.DigitalInOut(board.D8)
+pump.direction = digitalio.Direction.OUTPUT
+pump.value = False
+
 while True:
     display.fill(0)
     display.text('Humidity: {0}%'.format(getHumidity()), 0, 5, 1)
@@ -40,8 +44,13 @@ while True:
         if not button.value:
             print('Humidity: {0}%'.format(getHumidity()))
             print('Temperature: {0}F'.format(getTemp()))
+            pump.value = not pump.value
         else:
             print("Button UP")
     button_previous_state = button_current_state
+    pump_text = "NOT PUMPING"
+    if pump.value:
+        pump_text = "PUMPING"
+    display.text(pump_text, 0, 35, 1)
     display.show()
-    time.sleep(.1)
+    time.sleep(.05)
