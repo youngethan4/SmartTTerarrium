@@ -7,8 +7,8 @@ import time
 
 WIDTH = 128
 HEIGHT = 64
-TIME_TO_PUMP = 10 # The amount of time in seconds to pump for
-CHECK_HUMIDITY_PERIOD = 20 # Amount of time in seconds to check the humidity at.
+TIME_TO_PUMP = 30 # The amount of time in seconds to pump for
+CHECK_HUMIDITY_PERIOD = 3600 # Amount of time in seconds to check the humidity at.
 
 i2c = busio.I2C(board.SCL, board.SDA)
 sensor = adafruit_sht31d.SHT31D(i2c)
@@ -92,3 +92,4 @@ except Exception as e:
     print(e)
 finally:
     pump.value = False
+ 
